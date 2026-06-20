@@ -1,0 +1,303 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: Arial, sans-serif;
+    background-color: #f4f6f9;
+}
+
+/* Navbar */
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #1e293b;
+}
+
+.logo{
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.nav-links a{
+    text-decoration: none;
+    color: white;
+    margin-left: 20px;
+    font-size: 16px;
+}
+
+.nav-links a:hover{
+    color: #38bdf8;
+}
+
+/* Hero Section */
+.hero{
+    text-align: center;
+    padding: 100px 20px;
+}
+
+.hero h1{
+    font-size: 50px;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+.hero p{
+    font-size: 20px;
+    color: #555;
+    margin-bottom: 30px;
+}
+
+/* Buttons */
+.btn{
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.btn:hover{
+    background-color: #1d4ed8;
+}
+
+.btn-secondary{
+    background-color: #64748b;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.btn-secondary:hover{
+    background-color: #475569;
+}
+
+/* Features Section */
+.features{
+    padding: 50px;
+    text-align: center;
+}
+
+.features h2{
+    margin-bottom: 30px;
+    color: #1e293b;
+}
+
+.feature-container{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.feature-card{
+    background-color: white;
+    width: 300px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+
+.feature-card h3{
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+.feature-card p{
+    color: #555;
+}
+
+/* Footer */
+footer{
+    background-color: #1e293b;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 50px;
+}
+
+/* Register & Login Form */
+
+.form-container{
+    width: 400px;
+    background-color: white;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-container h2{
+    text-align: center;
+    margin-bottom: 25px;
+    color: #1e293b;
+}
+
+.input-group{
+    margin-bottom: 15px;
+}
+
+.input-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input{
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form-container .btn{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.login-link{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-link a{
+    text-decoration: none;
+    color: #2563eb;
+}
+
+/* Login & Register Page */
+
+.form-container{
+    width: 400px;
+    margin: 80px auto;
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+}
+
+.form-container h2{
+    text-align: center;
+    margin-bottom: 20px;
+    color: #1e293b;
+}
+
+.input-group{
+    margin-bottom: 15px;
+}
+
+.input-group label{
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group input{
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.input-group input:focus{
+    outline: none;
+    border-color: #2563eb;
+}
+
+.form-container .btn{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.login-link{
+    text-align: center;
+    margin-top: 15px;
+}
+
+.login-link a{
+    text-decoration: none;
+    color: #2563eb;
+    font-weight: bold;
+}
+
+.login-link a:hover{
+    text-decoration: underline;
+}
+
+/* Dashboard */
+
+.dashboard-container{
+    width: 80%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.dashboard-container h1{
+    color: #1e293b;
+    margin-bottom: 10px;
+}
+
+.dashboard-container p{
+    color: #555;
+    margin-bottom: 30px;
+}
+
+.interview-box{
+    width: 500px;
+    margin: auto;
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+
+.interview-box label{
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.interview-box select{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.score-section{
+    margin-top: 50px;
+}
+
+.score-section h2{
+    margin-bottom: 20px;
+}
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+table th,
+table td{
+    border: 1px solid #ddd;
+    padding: 12px;
+}
+
+table th{
+    background-color: #2563eb;
+    color: white;
+}

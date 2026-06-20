@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - AI Interview Simulator</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            AI Interview Simulator
+        </div>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Dashboard</a>
+            <a href="login.html">Logout</a>
+        </div>
+    </nav>
+
+    <!-- Dashboard Section -->
+    <div class="dashboard-container">
+
+        <h1>Welcome, User 👋</h1>
+
+        <p>Select your interview role and start practicing.</p>
+
+        <div class="interview-box">
+
+            <label for="role">Choose Role</label>
+
+            <select id="role">
+                <option value="">-- Select Role --</option>
+                <option>Java Developer</option>
+                <option>Python Developer</option>
+                <option>Full Stack Developer</option>
+                <option>Data Analyst</option>
+                <option>Frontend Developer</option>
+            </select>
+
+            <button class="btn" id="startBtn">
+                Start Interview
+            </button>
+
+        </div>
+
+        <!-- Previous Scores -->
+        <div class="score-section">
+
+            <h2>Previous Interview Scores</h2>
+
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>Role</th>
+                    <th>Score</th>
+                </tr>
+
+                <tr>
+                    <td>20-06-2026</td>
+                    <td>Full Stack Developer</td>
+                    <td>82%</td>
+                </tr>
+
+                <tr>
+                    <td>18-06-2026</td>
+                    <td>Python Developer</td>
+                    <td>76%</td>
+                </tr>
+            </table>
+
+        </div>
+
+    </div>
+<script src="js/script.js"></script>
+</body>
+</html>
