@@ -143,3 +143,92 @@ if(welcomeUser){
     }
 
 }
+
+// ================= CREATE INTERVIEW =================
+
+const createInterviewForm = document.getElementById("createInterviewForm");
+
+if (createInterviewForm) {
+
+    createInterviewForm.addEventListener("submit", async (e) => {
+
+        e.preventDefault();
+
+        const role = document.getElementById("role").value;
+        const experience = document.getElementById("experience").value;
+        const techStack = document.getElementById("techStack").value;
+        const difficulty = document.getElementById("difficulty").value;
+        const questionCount = Number(document.getElementById("questionCount").value);
+
+        if (!role || !techStack) {
+            alert("Please fill all fields.");
+            return;
+        }
+
+        const button = createInterviewForm.querySelector("button");
+
+        button.disabled = true;
+
+        button.innerHTML = `
+            <span class="spinner-border spinner-border-sm"></span>
+            Generating Interview...
+        `;
+
+        try {
+
+            const response = await fetch(
+                "http://localhost:5000/api/interview/generate",
+                {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+
+                        role,
+                        experience,
+                        techStack,
+                        difficulty,
+                        questionCount
+
+                    })
+
+                }
+            );
+
+            const data = await response.json();
+
+            console.log(data);
+
+            localStorage.setItem(
+                "currentInterview",
+                JSON.stringify(data)
+            );
+
+            alert("Interview Generated Successfully!");
+
+            window.location.href = "interview.html";
+
+        }
+
+        catch (error) {
+
+            console.log(error);
+
+            alert("Something went wrong.");
+
+        }
+
+        button.disabled = false;
+
+        button.innerHTML = `
+            <i class="bi bi-stars"></i>
+            Generate AI Interview
+        `;
+
+    });
+
+}

@@ -19,6 +19,8 @@ app.use(
   require("./routes/authRoutes")
 );
 
+app.use("/api/interview", require("./routes/interviewRoutes"));
+
 app.get("/", (req, res) => {
   res.send("Backend Running");
 });
