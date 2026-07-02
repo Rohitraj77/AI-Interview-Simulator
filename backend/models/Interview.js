@@ -40,10 +40,30 @@ const interviewSchema = new mongoose.Schema({
 
     answers: [
         {
-            question: String,
-            answer: String,
-            feedback: String,
-            score: Number
+            question: {
+                type: String
+            },
+
+            answer: {
+                type: String
+            },
+
+            score: {
+                type: Number
+            },
+
+            feedback: {
+                type: String
+            },
+
+            correctAnswer: {
+                type: String
+            },
+
+            suggestion: {
+                type: String
+            }
+
         }
     ],
 
@@ -54,7 +74,7 @@ const interviewSchema = new mongoose.Schema({
 
 },
 {
-    timestamps:true
+    timestamps: true
 });
 
 module.exports =
