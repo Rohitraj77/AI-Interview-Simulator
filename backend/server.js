@@ -21,6 +21,11 @@ app.use(
 
 app.use("/api/interview", require("./routes/interviewRoutes"));
 
+app.use(
+    "/api/dashboard",
+    require("./routes/dashboardRoutes")
+);
+
 app.get("/", (req, res) => {
   res.send("Backend Running");
 });

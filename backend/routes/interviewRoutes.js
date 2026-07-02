@@ -3,17 +3,36 @@ const express = require("express");
 const router = express.Router();
 
 const {
-
-    generateInterview
-
+    generateInterview,
+    evaluateInterview,
+    getInterviewHistory,
+    getInterviewById,
+    deleteInterview
 } = require("../controllers/interviewController");
 
-router.post(
+// ==============================
+// Generate AI Interview
+// ==============================
+router.post("/generate", generateInterview);
 
-    "/generate",
+// ==============================
+// Evaluate Interview
+// ==============================
+router.post("/evaluate", evaluateInterview);
 
-    generateInterview
+// ==============================
+// Get Interview History
+// ==============================
+router.get("/history", getInterviewHistory);
 
-);
+// ==============================
+// Get Interview By ID
+// ==============================
+router.get("/:id", getInterviewById);
+
+// ==============================
+// Delete Interview
+// ==============================
+router.delete("/:id", deleteInterview);
 
 module.exports = router;

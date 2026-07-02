@@ -1,0 +1,176 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+
+min-height:100vh;
+
+background:linear-gradient(-45deg,#020617,#0f172a,#111827,#1e3a8a);
+
+background-size:400% 400%;
+
+animation:bg 15s ease infinite;
+
+color:white;
+
+}
+
+@keyframes bg{
+
+0%{background-position:0% 50%;}
+
+50%{background-position:100% 50%;}
+
+100%{background-position:0% 50%;}
+
+}
+
+.glass-nav{
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-bottom:1px solid rgba(255,255,255,.08);
+
+padding:18px;
+
+}
+
+.report-card{
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(20px);
+
+border-radius:30px;
+
+padding:50px;
+
+border:1px solid rgba(255,255,255,.1);
+
+box-shadow:0 20px 60px rgba(0,0,0,.45);
+
+}
+
+.score-circle{
+
+width:220px;
+
+height:220px;
+
+margin:40px auto;
+
+border-radius:50%;
+
+display:flex;
+
+flex-direction:column;
+
+justify-content:center;
+
+align-items:center;
+
+background:linear-gradient(135deg,#2563eb,#7c3aed);
+
+box-shadow:0 15px 40px rgba(37,99,235,.4);
+
+}
+
+.score-circle h2{
+
+font-size:55px;
+
+font-weight:700;
+
+}
+
+.progress{
+
+height:20px;
+
+border-radius:50px;
+
+background:#1e293b;
+
+}
+
+.progress-bar{
+
+background:linear-gradient(90deg,#3b82f6,#8b5cf6);
+
+font-weight:600;
+
+}
+
+.feedback-card{
+
+background:rgba(255,255,255,.06);
+
+padding:25px;
+
+border-radius:18px;
+
+margin-top:25px;
+
+border-left:5px solid #3b82f6;
+
+}
+
+.feedback-card h4{
+
+margin-bottom:12px;
+
+font-weight:700;
+
+}
+
+.feedback-card p{
+
+color:#dbeafe;
+
+line-height:1.7;
+
+}
+
+#downloadBtn{
+
+padding:14px 35px;
+
+border-radius:50px;
+
+font-size:18px;
+
+font-weight:600;
+
+}
+
+@media(max-width:768px){
+
+.report-card{
+
+padding:25px;
+
+}
+
+.score-circle{
+
+width:170px;
+
+height:170px;
+
+}
+
+.score-circle h2{
+
+font-size:40px;
+
+}
+
+}

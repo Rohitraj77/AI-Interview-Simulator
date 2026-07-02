@@ -5,9 +5,9 @@ const ai = new GoogleGenAI({
     apiKey: process.env.GEMINI_API_KEY
 });
 
-// ==============================
+// ================================
 // Generate Interview Questions
-// ==============================
+// ================================
 
 const generateInterview = async (req, res) => {
 
@@ -27,20 +27,17 @@ You are an expert technical interviewer.
 Generate exactly ${questionCount} interview questions.
 
 Role: ${role}
-
 Experience: ${experience}
-
 Tech Stack: ${techStack}
-
 Difficulty: ${difficulty}
 
-Return ONLY a valid JSON array.
+Return ONLY a JSON array.
 
 Example:
+
 [
 "What is React?",
-"What is Virtual DOM?",
-"What is useEffect?"
+"What is Virtual DOM?"
 ]
 `;
 
@@ -51,7 +48,6 @@ Example:
 
         let text = response.text.trim();
 
-        // Remove markdown if Gemini returns ```json
         text = text.replace(/```json/g, "");
         text = text.replace(/```/g, "").trim();
 
@@ -59,12 +55,23 @@ Example:
 
         const interview = await Interview.create({
 
+            userId: req.body.userId || null,
+
             role,
+
             experience,
+
             techStack,
+
             difficulty,
+
             questionCount,
-            questions
+
+            questions,
+
+            answers: [],
+
+            finalScore: 0
 
         });
 
@@ -82,9 +89,9 @@ Example:
 
 };
 
-// ==============================
-// Evaluate Interview Answers
-// ==============================
+// ================================
+// Evaluate Interview
+// ================================
 
 const evaluateInterview = async (req, res) => {
 
@@ -93,6 +100,7 @@ const evaluateInterview = async (req, res) => {
         const {
 
             interviewId,
+
             answers
 
         } = req.body;
@@ -102,38 +110,42 @@ const evaluateInterview = async (req, res) => {
         if (!interview) {
 
             return res.status(404).json({
+
                 message: "Interview not found"
+
             });
 
         }
 
         const prompt = `
-You are an expert technical interviewer.
+You are an expert interviewer.
 
-Evaluate the following interview.
+Evaluate the candidate answers.
 
 Questions:
+
 ${JSON.stringify(interview.questions)}
 
 Answers:
+
 ${JSON.stringify(answers)}
 
-Return ONLY valid JSON.
+Return ONLY JSON.
 
 Example:
 
 {
-  "overallScore": 8.5,
-  "feedback": [
-    {
-      "question": "What is React?",
-      "answer": "React is a library...",
-      "score": 9,
-      "feedback": "Good answer.",
-      "correctAnswer": "React is a JavaScript library used to build UI.",
-      "suggestion": "Mention Virtual DOM."
-    }
-  ]
+"overallScore":8.6,
+"feedback":[
+{
+"question":"...",
+"answer":"...",
+"score":9,
+"feedback":"...",
+"correctAnswer":"...",
+"suggestion":"..."
+}
+]
 }
 `;
 
@@ -164,7 +176,107 @@ Example:
         console.log(error);
 
         res.status(500).json({
+
             message: "Evaluation Failed"
+
+        });
+
+    }
+
+};
+
+// ================================
+// Get Interview History
+// ================================
+
+const getInterviewHistory = async (req, res) => {
+
+    try {
+
+        const interviews = await Interview.find()
+
+            .sort({
+
+                createdAt: -1
+
+            });
+
+        res.status(200).json(interviews);
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+
+            message: "Unable to fetch history"
+
+        });
+
+    }
+
+};
+
+// ================================
+// Get Single Interview
+// ================================
+
+const getInterviewById = async (req, res) => {
+
+    try {
+
+        const interview = await Interview.findById(req.params.id);
+
+        if (!interview) {
+
+            return res.status(404).json({
+
+                message: "Interview not found"
+
+            });
+
+        }
+
+        res.status(200).json(interview);
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+
+            message: "Unable to fetch interview"
+
+        });
+
+    }
+
+};
+
+// ================================
+// Delete Interview
+// ================================
+
+const deleteInterview = async (req, res) => {
+
+    try {
+
+        await Interview.findByIdAndDelete(req.params.id);
+
+        res.status(200).json({
+
+            message: "Interview Deleted Successfully"
+
+        });
+
+    } catch (error) {
+
+        console.log(error);
+
+        res.status(500).json({
+
+            message: "Unable to delete interview"
+
         });
 
     }
@@ -174,6 +286,13 @@ Example:
 module.exports = {
 
     generateInterview,
-    evaluateInterview
+
+    evaluateInterview,
+
+    getInterviewHistory,
+
+    getInterviewById,
+
+    deleteInterview
 
 };

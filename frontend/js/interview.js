@@ -1,5 +1,8 @@
-let interview =
-    JSON.parse(localStorage.getItem("currentInterview"));
+// =============================
+// Load Interview
+// =============================
+
+const interview = JSON.parse(localStorage.getItem("currentInterview"));
 
 if (!interview) {
 
@@ -9,33 +12,32 @@ if (!interview) {
 
 }
 
+// =============================
+// Variables
+// =============================
+
 let currentQuestion = 0;
 
 let answers = new Array(interview.questions.length).fill("");
 
-const questionText =
-    document.getElementById("questionText");
+const questionText = document.getElementById("questionText");
+const questionNumber = document.getElementById("questionNumber");
+const totalQuestions = document.getElementById("totalQuestions");
 
-const questionNumber =
-    document.getElementById("questionNumber");
+const answer = document.getElementById("answer");
 
-const totalQuestions =
-    document.getElementById("totalQuestions");
+const progressBar = document.getElementById("progressBar");
 
-const answer =
-    document.getElementById("answer");
+const prevBtn = document.getElementById("prevBtn");
+const nextBtn = document.getElementById("nextBtn");
 
-const progressBar =
-    document.getElementById("progressBar");
+const charCount = document.getElementById("charCount");
 
-const prevBtn =
-    document.getElementById("prevBtn");
+const timer = document.getElementById("timer");
 
-const nextBtn =
-    document.getElementById("nextBtn");
-
-const charCount =
-    document.getElementById("charCount");
+// =============================
+// Load Question
+// =============================
 
 function loadQuestion() {
 
@@ -51,19 +53,26 @@ function loadQuestion() {
     answer.value =
         answers[currentQuestion];
 
-    progressBar.style.width =
-        `${((currentQuestion + 1) / interview.questions.length) * 100}%`;
-
-    progressBar.innerHTML =
-        `${Math.round(((currentQuestion + 1) / interview.questions.length) * 100)}%`;
-
     charCount.textContent =
         answer.value.length;
+
+    const progress =
+        ((currentQuestion + 1) /
+        interview.questions.length) * 100;
+
+    progressBar.style.width =
+        progress + "%";
+
+    progressBar.innerHTML =
+        Math.round(progress) + "%";
 
     prevBtn.disabled =
         currentQuestion === 0;
 
-    if (currentQuestion === interview.questions.length - 1) {
+    if (
+        currentQuestion ===
+        interview.questions.length - 1
+    ) {
 
         nextBtn.innerHTML =
             "Finish Interview";
@@ -77,6 +86,10 @@ function loadQuestion() {
 
 }
 
+// =============================
+// Character Counter
+// =============================
+
 answer.addEventListener("input", () => {
 
     answers[currentQuestion] =
@@ -87,7 +100,14 @@ answer.addEventListener("input", () => {
 
 });
 
+// =============================
+// Previous
+// =============================
+
 prevBtn.addEventListener("click", () => {
+
+    answers[currentQuestion] =
+        answer.value;
 
     if (currentQuestion > 0) {
 
@@ -99,55 +119,143 @@ prevBtn.addEventListener("click", () => {
 
 });
 
-nextBtn.addEventListener("click", () => {
+// =============================
+// Next / Finish
+// =============================
+
+nextBtn.addEventListener("click", async () => {
 
     answers[currentQuestion] =
         answer.value;
 
-    if (currentQuestion < interview.questions.length - 1) {
+    if (
+        currentQuestion <
+        interview.questions.length - 1
+    ) {
 
         currentQuestion++;
 
         loadQuestion();
 
-    } else {
+        return;
 
-        localStorage.setItem(
-            "answers",
-            JSON.stringify(answers)
+    }
+
+    nextBtn.disabled = true;
+
+    nextBtn.innerHTML =
+        "Evaluating...";
+
+    try {
+
+        const response = await fetch(
+
+            "http://localhost:5000/api/interview/evaluate",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type":
+                    "application/json"
+
+                },
+
+                body: JSON.stringify({
+
+                    interviewId:
+                    interview._id,
+
+                    answers
+
+                })
+
+            }
+
         );
 
-        alert("Interview Completed!");
+        const result =
+            await response.json();
+
+        if (!response.ok) {
+
+            throw new Error(
+                result.message
+            );
+
+        }
+
+        localStorage.setItem(
+
+            "evaluation",
+
+            JSON.stringify(result)
+
+        );
+
+        localStorage.setItem(
+
+            "answers",
+
+            JSON.stringify(answers)
+
+        );
 
         window.location.href =
             "report.html";
 
     }
 
+    catch (error) {
+
+        console.log(error);
+
+        alert(
+            "Evaluation Failed"
+        );
+
+        nextBtn.disabled = false;
+
+        nextBtn.innerHTML =
+            "Finish Interview";
+
+    }
+
 });
 
-let time = 15 * 60;
+// =============================
+// Timer
+// =============================
 
-const timer =
-    document.getElementById("timer");
+let seconds = 15 * 60;
 
-setInterval(() => {
+const interval = setInterval(() => {
 
-    let min =
-        Math.floor(time / 60);
+    const min =
+        Math.floor(seconds / 60);
 
-    let sec =
-        time % 60;
+    const sec =
+        seconds % 60;
 
     timer.innerHTML =
         `${String(min).padStart(2, "0")}:${String(sec).padStart(2, "0")}`;
 
-    if (time > 0) {
+    if (seconds <= 0) {
 
-        time--;
+        clearInterval(interval);
+
+        alert("Time Over");
+
+        nextBtn.click();
 
     }
 
+    seconds--;
+
 }, 1000);
+
+// =============================
 
 loadQuestion();
